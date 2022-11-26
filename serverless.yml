@@ -14,21 +14,29 @@ provider:
       statements:
         - Effect: 'Allow'
           Action:        
-            - 'dynamodb:PutItem'
-            - 'dynamodb:Get*'
-            - 'dynamodb:Scan*'
-            - 'dynamodb:UpdateItem'
-            - 'dynamodb:DeleteItem'
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
           Resource:
             - Fn::GetAtt: [ TodoTable, Arn]
+        
 
 functions:
-  hello:
-    handler: handler.hello
+  getAllTasks:
+    handler: src/functions.getAllTasks
     events:
       - httpApi:
           method: GET
           path: /
+  taskById:
+    handler: src/functions.taskById
+    events:
+      -httpApi:
+        method: GET
+        path: /{id}
 
 resources:
   Resources:
