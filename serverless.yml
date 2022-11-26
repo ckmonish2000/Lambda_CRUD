@@ -34,9 +34,28 @@ functions:
   taskById:
     handler: src/functions.taskById
     events:
-      -httpApi:
-        method: GET
-        path: /{id}
+      - httpApi:
+          method: GET
+          path: /{id}
+  deleteTask:
+    handler: src/functions.deleteTask
+    events:
+      - httpApi:
+          method: DELETE
+          path: /{id}
+  createTask:
+    handler: src/functions.createTask
+    events:
+      - httpApi:
+          method: POST
+          path: /
+  updateTask:
+    handler: src/functions.updateTask
+    events:
+      - httpApi:
+          method: PUT
+          path: /
+
 
 resources:
   Resources:

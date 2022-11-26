@@ -11,7 +11,7 @@ class Todo {
     }
     const result = await this.client.put(params).promise()
 
-    return result.$response
+    return true
   }
 
 
@@ -23,6 +23,7 @@ class Todo {
       }
     }
     const result = await this.client.get(params).promise()
+    console.log(result)
     return result.Item
   }
 
@@ -42,7 +43,7 @@ class Todo {
       }
     }
     const result = await this.client.delete(params).promise()
-    return result.$response
+    return true
   }
 }
 

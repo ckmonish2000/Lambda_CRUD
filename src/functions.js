@@ -1,4 +1,5 @@
 'use strict';
+const io = require('./io')
 const Todo = require('./model')
 
 const getAllTasks = async (event) => {
@@ -8,16 +9,35 @@ const getAllTasks = async (event) => {
 
 
 const taskById = async (event) => {
-  console.log(event)
-  return true
+  const { id } = io.params(event)
+  const data = await Todo.fetchById(id);
+  return data
 }
 
-const updateTask = async (event) => { }
+const createTask = async (event) => {
+  const body = io.input(event);
+  const data = await Todo.put(body)
+  return JSON.stringify({ message: "created task" })
+}
 
-const deleteTask = async (event) => { }
+const updateTask = async (event) => {
+  const body = io.input(event);
+  const data = await Todo.put(body)
+
+  return JSON.stringify({ message: "updated task" })
+}
+
+const deleteTask = async (event) => {
+  const { id } = io.params(event)
+  const data = await Todo.deleteById(id);
+  return JSON.stringify({ message: "deleted task with id = " + id })
+}
 
 
 module.exports = {
   getAllTasks,
-  taskById
+  taskById,
+  createTask,
+  updateTask,
+  deleteTask
 }
